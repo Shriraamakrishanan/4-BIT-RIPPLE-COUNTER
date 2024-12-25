@@ -1,4 +1,6 @@
-# 4-BIT-RIPPLE-COUNTER
+## NAME:SUDARSAN.A ##
+## REG NO:24900190
+## EXP N0: 12 4-BIT-RIPPLE-COUNTER
 
 **AIM:**
 
@@ -24,17 +26,86 @@ In timing diagram Q0 is changing as soon as the negative edge of clock pulse is 
 
 **Procedure**
 
-/* write all the steps invloved */
+Type the program in Quartus software.
+
+Compile and run the program.
+
+Generate the RTL schematic and save the logic diagram.
+
+Create nodes for inputs and outputs to generate the timing diagram.
+
+For different input combinations generate the timing diagram.
 
 **PROGRAM**
 
-/* Program for 4 Bit Ripple Counter and verify its truth table in quartus using Verilog programming.
+```
+module EXP12(
+   input wire clk,  // Clock input
+   output reg [3:0] count // 4-bit counter output
+);
 
- Developed by: RegisterNumber:
-*/
+// Counter logic
+always @(posedge clk) begin
+   if (count == 4'b1111) // Reset when count reaches 15
+       count <= 4'b0000;
+   else
+       count <= count + 1; // Increment count
+end
 
+endmodule
+
+// Testbench
+module RippleCounter_tb;
+
+// Inputs
+reg clk;
+
+// Outputs
+wire [3:0] count;
+
+// Instantiate the counter
+RippleCounter uut(
+   .clk(clk),
+   .count(count)
+);
+
+// Clock generation
+initial begin
+   clk = 0;
+   forever #5 clk = ~clk; // Toggle clock every 5 time units
+end
+
+// Stimulus
+initial begin
+   // Wait for a few clock cycles
+   #10;
+   
+   // Display header
+   $display("Time | Count");
+   $display("-----------------");
+   
+   // Functional table testing
+   // Increment count 16 times and display the count
+   repeat (16) begin
+       #5; // Wait for one clock cycle
+       $display("%4d | %b", $time, count);
+   end
+   
+   // End simulation
+   $finish;
+end
+
+endmodule
+```
 **RTL LOGIC FOR 4 Bit Ripple Counter**
+
+![Screenshot 2024-12-25 161044](https://github.com/user-attachments/assets/3a0a31e6-186a-4bcf-bb67-e4ade861fa83)
+
 
 **TIMING DIGRAMS FOR 4 Bit Ripple Counter**
 
+![Screenshot 2024-12-25 161249](https://github.com/user-attachments/assets/495a2bd6-0045-4c1e-9749-d19eaa5457bd)
+
 **RESULTS**
+
+THE IMPLEMENTATION OF 4-BIT-RIPPLE-COUNTER IS TESTED AND VERIFIED.
